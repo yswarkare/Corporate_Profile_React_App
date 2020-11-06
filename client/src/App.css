@@ -1,0 +1,107 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Wrapper */
+
+.wrapper {
+  margin: 0.25rem;
+  padding: 0.25rem;
+}
+
+/* HomePage */
+
+.home-page {
+  margin: 0.25rem;
+  padding: 0.25rem;
+}
+
+.tab-button-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0.25rem;
+}
+
+.tab-button {
+  box-sizing: border-box;
+  width: 100%;
+  color: #eee;
+  background-color: #222;
+  border: 0.06125rem solid #eee;
+  border-radius: 0.25rem;
+}
+
+.tab-button:active {
+  color: #eee;
+  background-color: #222;
+  transform: translate(0px, -1px);
+  border: 0.06125rem solid #01002000;
+  border-radius: 0.25rem;
+}
+
+.current-profiles {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.add-new-profile {
+  display: grid;
+  grid-template-rows: auto;
+  grid-row-gap: 0.25rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+.add-new-profile-item {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  grid-column-gap: 0.25rem;
+  text-align: left;
+}
+
+.add-new-profile-item span {
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.add-new-profile-button {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-self: center;
+  grid-column-gap: 0.25rem;
+}
