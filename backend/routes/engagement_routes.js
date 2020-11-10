@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Engagement = require("../models/Engagement");
+const { uniqueEngagementId } = require("../utils/create_unique_ids");
 // const CompanyProfile = require("../models/CompanyProfile");
 
 
@@ -34,9 +35,13 @@ router.get("/get-by-id/:engagement_id", async (req, res) => {
 
 router.post("/add-new", async (req, res) => {
     try {
+        let engagementId = await uniqueEngagementId();
+        if (engagementId === undefined || company_id === null){
+            return res.json({ status: false, message: "failed to create unique id" });
+        }
         let newEngagement = await new Engagement({
             name: req.body.name,
-            engagementId: req.body.engagementId,
+            engagementId: engagementId,
             serviceOffering: req.body.serviceOffering,
             plannedStartDate: req.body.plannedStartDate,
             plannedEndDate: req.body.plannedEndDate,

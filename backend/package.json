@@ -1,27 +1,33 @@
 {
-  "name": "server",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.8",
+    "@types/express": "^4.17.8",
+    "@types/mongoose": "^5.7.37",
+    "@types/uuid": "^8.3.0",
     "body-parser": "^1.19.0",
     "consola": "^2.15.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.10.11",
+    "mongoose": "^5.10.13",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
-  }
+  },
+  "proxy": "http://127.0.0.1:5000"
 }

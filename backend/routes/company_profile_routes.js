@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const CompanyProfile = require("../models/CompanyProfile");
-const uuid = require("uuid");
+const { uniqueProfileId } = require("../utils/create_unique_ids");
+// const uuid = require("uuid");
 
 
 router.get("/", async (req, res) => {
@@ -34,11 +35,14 @@ router.get("/get-by-id/:company_id", async (req, res) => {
 router.post("/add-new", async (req, res) => {
     try {
         console.log(req.body)
-        let company_id = uuid();
-        console.log("company_id", company_id);
+        let company_id = await uniqueProfileId();
+        if (company_id === undefined || company_id === null){
+            return res.json({ status: false, message: "failed to create unique id" });
+        }
+        console.log("unique company_id", company_id);
         let newCompanyProfile = await CompanyProfile({
             companyName: req.body.companyName,
-            companyId: req.body.companyId,
+            companyId: company_id,
             webDomain: req.body.webDomain,
             registeredDate: req.body.registeredDate,
             clientSCOPname: req.body.clientSCOPname,

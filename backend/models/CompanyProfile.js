@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const companyProfileSchema = Schema({
     companyName: { type: String, trim: true, require: true, max: 200 },
-    companyId: { type: Number, trim: true, require: true, max: 10 },
+    companyId: { type: Number, trim: true, require: true, max: 10000000 },
     webDomain: { type: String, trim: true, require: true, max: 200 },
     registeredDate: { type: Date, require: true },
     clientSCOPname: { type: String, trim: true, require: true, max: 200 },
