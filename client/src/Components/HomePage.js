@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CurrentProfiles from "./CurrentProfiles";
 import ArchivedProfiles from "./ArchivedProfiles";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import {
+    getAllCompanyProfiles,
+    getAllCurrentProfiles,
+    getAllArchivedProfiles,
+    showCurrentProfiles,
+    showArchivedProfiles
+} from "../Redux/actions/companyActions";
 
 class HomePage extends Component {
 
@@ -19,6 +26,9 @@ class HomePage extends Component {
             currentButtonClass: this.state.activeTabClass,
             archivedButtonClass: this.state.inactiveTabClass
         })
+        this.props.getAllCompanyProfiles();
+        this.props.getAllCurrentProfiles();
+        this.props.getAllArchivedProfiles();
     }
 
     setActiveTab = (tabName) => {
@@ -30,11 +40,13 @@ class HomePage extends Component {
                 archivedButtonClass: this.state.activeTabClass,
                 currentButtonClass: this.state.inactiveTabClass
             })
+            this.props.showArchivedProfiles();
         } else if (tabName === "current") {
             this.setState({
                 currentButtonClass: this.state.activeTabClass,
                 archivedButtonClass: this.state.inactiveTabClass
             })
+            this.props.showCurrentProfiles();
         }
     }
 
@@ -61,9 +73,13 @@ class HomePage extends Component {
     }
 }
 
-// HomePage.propTypes = {
-    
-// }
+HomePage.propTypes = {
+    getAllCompanyProfiles: PropTypes.func.isRequired,
+    getAllCurrentProfiles: PropTypes.func.isRequired,
+    getAllArchivedProfiles: PropTypes.func.isRequired,
+    showCurrentProfiles: PropTypes.func.isRequired,
+    showArchivedProfiles: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -72,7 +88,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    
+    getAllCompanyProfiles,
+    getAllCurrentProfiles,
+    getAllArchivedProfiles,
+    showCurrentProfiles,
+    showArchivedProfiles
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

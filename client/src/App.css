@@ -105,3 +105,43 @@
   justify-self: center;
   grid-column-gap: 0.25rem;
 }
+
+.current-profiles-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.current-profiles-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 2fr;
+  width: 100%;
+  border: 0.125rem solid #61dafb;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.current-profiles-table-body {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 2fr;
+  width: 100%;
+  border: 0.125rem solid #61dafb;
+  border-top: none;
+}
+
+.header-cell {
+  border: 0.06125rem solid #61dafb;
+}
+
+.header-cell:nth-child(1) {
+  border: 0.06125rem solid #61dafb;
+  border-top-left-radius: 1rem;
+}
+
+.header-cell:nth-child(8) {
+  border: 0.06125rem solid #61dafb;
+  border-top-right-radius: 1rem;
+}

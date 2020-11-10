@@ -1,15 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class SearchProfile extends Component {
 
 
     render () {
         return (
-            <div>
-                
-            </div>
+            <Fragment>
+                <div className="search-box">
+                    <input
+                    type="search"
+                    onChange={(e)=>{this.setSearchInput(e.target.value)}}
+                    className="form-control"/>
+                </div>
+            </Fragment>
         )
 
     }

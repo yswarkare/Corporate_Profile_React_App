@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addNewProfileStatus } from "../Redux/actions/companyActions";
+import { addNewProfileStatus, showCurrentProfiles } from "../Redux/actions/companyActions";
 import AddNewProfile from './CompanyProfiles/AddNewProfile';
+// import Profiles from "./CompanyProfiles/Profiles";
+import CompanyProfilesTable from './CompanyProfiles/CompanyProfilesTable';
 
 class CurrentProfiles extends Component {
 
@@ -14,6 +16,7 @@ class CurrentProfiles extends Component {
         this.setState({
             addNewProfile: this.props.profiles.AddNewProfile
         });
+        this.props.showCurrentProfiles();
     }
 
     onClickAddNew = () => {
@@ -45,6 +48,10 @@ class CurrentProfiles extends Component {
                     }
                     <div></div>
                 </div>
+                <div className="current-profiles-table-container">
+                    <CompanyProfilesTable currentProfiles={this.props.currentProfiles} ></CompanyProfilesTable>
+                    {/* <Profiles profiles={this.props.currentProfiles}></Profiles> */}
+                </div>
             </div>
         )
     }
@@ -52,19 +59,23 @@ class CurrentProfiles extends Component {
 
 CurrentProfiles.propTypes = {
     profiles: PropTypes.object.isRequired,
+    currentProfiles: PropTypes.array.isRequired,
     engagements: PropTypes.object.isRequired,
     addNewProfileStatus: PropTypes.func.isRequired,
+    showCurrentProfiles: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
     return {
         profiles: state.profiles,
+        currentProfiles: state.profiles.currentProfiles,
         engagements: state.engagements
     }
 }
 
 const mapDispatchToProps = {
-    addNewProfileStatus
+    addNewProfileStatus,
+    showCurrentProfiles
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentProfiles);

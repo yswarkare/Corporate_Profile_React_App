@@ -84,7 +84,7 @@ class AddNewProfile extends Component {
                     onChange={(e)=>{this.onChangeSetCompanyStatus(e.target.value)}}
                     className="form-control">
                         <option value="active">Active</option>
-                        <option value="completed">Completed</option>
+                        <option value="inactive">Inactive</option>
                     </select>
                 </div>
                 <div className="add-new-profile-item">

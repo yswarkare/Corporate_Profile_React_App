@@ -5,6 +5,8 @@ import {
     Update_Company_Profile,
     Delete_Company_Profile,
     Get_All_Company_Profiles,
+    Get_All_Current_Profiles,
+    Get_All_Archived_Profiles,
     Get_Company_Profile,
     Get_Error,
     Set_Company_Name,
@@ -13,7 +15,14 @@ import {
     Set_Client_SPOC_Name,
     Set_Company_Status,
     Set_Company_Status_Date,
-    Add_New_Profile_Status
+    Add_New_Profile_Status,
+    Show_Current_Profiles,
+    Show_Archived_Profiles,
+    Show_Filtered_Profiles,
+    Show_Filtered_Current,
+    Show_Filtered_Archived,
+    Search_Current_Profile,
+    Search_Archived_Profile
 } from "./actionTypes";
 
 
@@ -34,11 +43,12 @@ export const addCompanyProfile = (profile) => async (dispatch) => {
     }
 }
 
-export const editCompanyProfile = (profile) => async (dispatch) => {
+export const editCompanyProfile = (index, companyId) => async (dispatch) => {
     try {
         dispatch({
             type: Edit_Company_Profile,
-            payload: profile
+            payload: companyId,
+            index: index
         })
     } catch (error) {
         dispatch({
@@ -50,9 +60,11 @@ export const editCompanyProfile = (profile) => async (dispatch) => {
 
 export const updateCompanyProfile = (profile) => async (dispatch) => {
     try {
+        console.log("profile => ", profile);
+        let res = await api.patch(`/company-profiles/update`, profile)
         dispatch({
             type: Update_Company_Profile,
-            payload: profile
+            payload: res
         })
     } catch (error) {
         dispatch({
@@ -76,11 +88,41 @@ export const deleteCompanyProfile = (profile) => async (dispatch) => {
     }
 }
 
-export const getAllCompanyProfiles = (profile) => async (dispatch) => {
+export const getAllCompanyProfiles = () => async (dispatch) => {
     try {
         let res = await api.get(`/company-profiles/get-all`);
         dispatch({
             type: Get_All_Company_Profiles,
+            payload: res
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const getAllCurrentProfiles = () => async (dispatch) => {
+    try {
+        let res = await api.get(`/company-profiles/get-all-current`);
+        dispatch({
+            type: Get_All_Current_Profiles,
+            payload: res
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const getAllArchivedProfiles = () => async (dispatch) => {
+    try {
+        let res = await api.get(`/company-profiles/get-all-archived`);
+        dispatch({
+            type: Get_All_Archived_Profiles,
             payload: res
         })
     } catch (error) {
@@ -195,6 +237,104 @@ export const addNewProfileStatus = (status) => async (dispatch) => {
         dispatch({
             type: Add_New_Profile_Status,
             payload: status
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const showCurrentProfiles = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: Show_Current_Profiles,
+            payload: ""
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const showArchivedProfiles = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: Show_Archived_Profiles,
+            payload: ""
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const showFilteredProfiles = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: Show_Filtered_Profiles,
+            payload: ""
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const showFilteredCurrent = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: Show_Filtered_Current,
+            payload: ""
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const showFilteredArchived = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: Show_Filtered_Archived,
+            payload: ""
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const searchCurrentProfile = (searchInput) => async (dispatch) => {
+    try {
+        dispatch({
+            type: Search_Current_Profile,
+            payload: searchInput
+        })
+    } catch (error) {
+        dispatch({
+            type: Get_Error,
+            payload: error
+        })
+    }
+}
+
+export const searchArchivedProfile = (searchInput) => async (dispatch) => {
+    try {
+        dispatch({
+            type: Search_Archived_Profile,
+            payload: searchInput
         })
     } catch (error) {
         dispatch({

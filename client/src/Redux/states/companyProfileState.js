@@ -12,11 +12,14 @@ const companyProfileState = {
         engagements: [{}]
     },
     addNewProfile: false,
-    editProfile: false,
     company_id: "",
     profiles: [],
     currentProfiles: [],
-    archivedProfiles: []
+    archivedProfiles: [],
+    showProfiles: null,
+    editProfile: false,
+    editIndex: null,
+    editProfileId: null
 }
 
 export default companyProfileState;

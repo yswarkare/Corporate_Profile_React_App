@@ -23,6 +23,24 @@ router.get("/get-all", async (req, res) => {
     }
 });
 
+router.get("/get-all-current", async (req, res) => {
+    try {
+        let currentProfiles = await CompanyProfile.find({ status: "active" });
+        return res.json({ status: true, message: `got profiles of all companies`, currentProfiles });
+    } catch (error) {
+        return res.json({ status: false, message: `failed to get profiles of all companies \n ${error}`, error: error });
+    }
+});
+
+router.get("/get-all-archived", async (req, res) => {
+    try {
+        let archivedProfiles = await CompanyProfile.find({ status: "inactive" });
+        return res.json({ status: true, message: `got profiles of all companies`, archivedProfiles });
+    } catch (error) {
+        return res.json({ status: false, message: `failed to get profiles of all companies \n ${error}`, error: error });
+    }
+});
+
 router.get("/get-by-id/:company_id", async (req, res) => {
     try {
         let companyProfile = await CompanyProfile.findOne({ _id: req.params.company_id });
@@ -40,7 +58,7 @@ router.post("/add-new", async (req, res) => {
             return res.json({ status: false, message: "failed to create unique id" });
         }
         console.log("unique company_id", company_id);
-        let newCompanyProfile = await CompanyProfile({
+        let newCompanyProfile = await new CompanyProfile({
             companyName: req.body.companyName,
             companyId: company_id,
             webDomain: req.body.webDomain,
@@ -50,25 +68,26 @@ router.post("/add-new", async (req, res) => {
             statusDate: req.body.statusDate
         });
         let companyProfile = await newCompanyProfile.save();
-        return res.json({ status: true, message: `successfully created new company profile`, companyProfile });
+        return res.status(200).json({ status: true, message: `successfully created new company profile`, companyProfile });
     } catch (error) {
         return res.json({ status: false, message: `failed to create new company profile \n ${error}`, error });
     }
 });
 
 router.patch("/update", async (req, res) => {
+    console.log(JSON.stringify(req.body));
     try {
-        let oldCompanyProfile = await CompanyProfile({
-            _id: req.body.company_id
+        let oldCompanyProfile = await CompanyProfile.findOneAndUpdate({
+            companyId: req.body.companyId
         },{
             companyName: req.body.companyName,
             webDomain: req.body.webDomain,
             registeredDate: req.body.registeredDate,
             clientSCOPname: req.body.clientSCOPname,
-            status: req.body.status,
-            statusDate: req.body.statusDate
+            status: req.body.status
         });
-        return res.json({ status: true, message: `successfully updated company profile`, newCompanyProfile, oldCompanyProfile });
+        let newCompanyProfile = await CompanyProfile.findOne({ companyId: req.body.companyId });
+        return res.json({ status: true, message: `successfully updated company profile`, newCompanyProfile });
     } catch (error) {
         return res.json({ status: false, message: `failed to update company profile \n ${error}`, error });
     }
